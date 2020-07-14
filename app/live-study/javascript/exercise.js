@@ -2,12 +2,13 @@ import studyIn from './study-in.js'
 
 export default (() => {
   function Exercise(path, dirPath, userConfig = {}) {
+    this.language = 'js';
     if (typeof path !== 'string') {
       throw new TypeError('path must be a string');
     };
     this.path = {
       rel: path,
-      abs: dirPath ? dirPath + path : null,
+      abs: dirPath ? (dirPath + path).split('//').join('/') : null,
     };
     this.code = null;
     this.monacoModel = monaco.editor.createModel('', 'javascript');

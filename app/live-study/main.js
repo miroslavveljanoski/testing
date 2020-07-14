@@ -9,6 +9,7 @@ export default class LiveStudy {
   active = null;
   editor = null;
   buttonsContainer = null;
+  language = '';
   loopGuard = {
     active: false,
     max: 20
@@ -31,8 +32,8 @@ export default class LiveStudy {
 
   static populate(data, path, config) {
     const Exercise = (!config.language
-      || config.language.toLowerCase() === 'javascript'
-      || config.language.toLowerCase() === 'js')
+      || config.language.toLowerCase().includes('javascript')
+      || config.language.toLowerCase().includes('js'))
       ? ExerciseJS
       : ExerciseHTML;
     const copy = Object.assign({}, data);
@@ -64,31 +65,43 @@ export default class LiveStudy {
         exerciseEl.innerHTML = exercise.path.rel;
         exerciseEl.onclick = () => {
           history.replaceState(null, "", `?path=${encodeURIComponent(exercise.path.abs)}`);
-          document.getElementById('current-path').innerHTML = exercise.path.abs.split('/').slice(2).join('/');
+          document.getElementById('current-path').innerHTML = exercise.path.abs;
           editor.setModel(exercise.monacoModel);
+
           if (exercise.code === null) {
             exercise.load((err, code) => {
               exercise.monacoModel.setValue(code);
-              this.renderStudyButtons(exercise)
+              this.renderStudyButtons(exercise);
+              if (exercise.language === 'html') {
+                document.getElementById('output').src = "data:text/html;charset=utf-8," + encodeURIComponent(code);
+              }
             });
+          } else {
+            this.renderStudyButtons(exercise);
+            if (exercise.language === 'html') {
+              document.getElementById('output').src = "data:text/html;charset=utf-8," + encodeURIComponent(exercise.code);
+            }
           }
           this.active = exercise;
         }
 
-        // const loadChangesEl = document.createElement('button');
-        // loadChangesEl.innerHTML = 'reload';
-        // loadChangesEl.onclick = () => {
-        //   exercise.load((err, code) => {
-        //     exercise.monacoModel.setValue(code);
-        //     editor.setModel(exercise.monacoModel);
-        //     this.renderStudyButtons(exercise);
-        //   });
-        // }
+        const loadChangesEl = document.createElement('button');
+        loadChangesEl.innerHTML = 'reload';
+        loadChangesEl.onclick = () => {
+          exercise.load((err, code) => {
+            exercise.monacoModel.setValue(code);
+            editor.setModel(exercise.monacoModel);
+            this.renderStudyButtons(exercise);
+            if (exercise.language === 'html') {
+              document.getElementById('output').src = "data:text/html;charset=utf-8," + encodeURIComponent(code);
+            }
+          });
+        }
 
         const exerciseContainer = document.createElement('div');
         exerciseContainer.style = 'margin-top: 0.5em; margin-bottom: 0.5em;';
         exerciseContainer.appendChild(exerciseEl);
-        // exerciseContainer.appendChild(loadChangesEl);
+        exerciseContainer.appendChild(loadChangesEl);
         subListEl.appendChild(exerciseContainer);
       });
     };
