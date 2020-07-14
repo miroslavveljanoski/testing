@@ -9,16 +9,21 @@ const assert = chai.assert;
  * @returns {Array} - a new array with no strings
  */
 const filterOutStrings = (arr) => {
-  if (!Array.isArray(arr)) { throw new TypeError('arr'); }
+  if (!Array.isArray(arr)) {
+    throw new TypeError('arr');
+  }
 
   const noStrings = [];
-  for (const _ of _) {
-
+  for (let value of arr) {
+    if (typeof value === 'string') {
+      noStrings.pop(value);
+    } else {
+      noStrings.push(value);
+    }
   }
 
   return noStrings;
 };
-
 
 describe('filterOutStrings removes all "string" values from an array', () => {
   describe('it correctly filters the values in an array', () => {
@@ -60,12 +65,3 @@ describe('filterOutStrings removes all "string" values from an array', () => {
     });
   });
 });
-
-
-
-
-
-
-
-
-

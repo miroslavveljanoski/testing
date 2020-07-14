@@ -9,16 +9,18 @@ const assert = chai.assert;
  * @returns {Array} - a new array with no strings
  */
 const concatenateAsStrings = (arr) => {
-  if (!Array.isArray(arr)) { throw new TypeError('arr'); }
+  if (!Array.isArray(arr)) {
+    throw new TypeError('arr');
+  }
 
-  let concatenated = _;
-  for (const _ of _) {
-
+  let concatenated = '';
+  for (let value of arr) {
+    let returnedValue = String(value);
+    concatenated += returnedValue;
   }
 
   return concatenated;
 };
-
 
 describe('concatenateAsStrings casts values to "string" and joins them together', () => {
   describe('it correctly concatenates the values in an array', () => {
@@ -60,12 +62,3 @@ describe('concatenateAsStrings casts values to "string" and joins them together'
     });
   });
 });
-
-
-
-
-
-
-
-
-

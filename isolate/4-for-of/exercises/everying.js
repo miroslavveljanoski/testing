@@ -9,19 +9,21 @@ const assert = chai.assert;
  * @returns {Array} - a new array with no strings
  */
 const containsNoNumbers = (arr) => {
-  if (!Array.isArray(arr)) { throw new TypeError('arr'); }
+  if (!Array.isArray(arr)) {
+    throw new TypeError('arr');
+  }
 
-  let noNumbers = _;
-  for (const _ of _) {
-
+  let noNumbers = true;
+  for (let value of arr) {
+    if (typeof value === 'number') {
+      noNumbers = false;
+    }
   }
 
   return noNumbers;
 };
 
-
 describe('containsNoNumbers checks if an array contains no numbers', () => {
-
   describe('it returns true when there are no numbers', () => {
     it('for an empty array', () => {
       const actual = containsNoNumbers([]);
@@ -84,12 +86,3 @@ describe('containsNoNumbers checks if an array contains no numbers', () => {
     });
   });
 });
-
-
-
-
-
-
-
-
-

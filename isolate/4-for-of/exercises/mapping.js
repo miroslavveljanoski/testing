@@ -9,16 +9,18 @@ const assert = chai.assert;
  * @returns {Array} - a new array of number values
  */
 const mapToNumber = (arr) => {
-  if (!Array.isArray(arr)) { throw new TypeError('arr'); }
+  if (!Array.isArray(arr)) {
+    throw new TypeError('arr');
+  }
 
   const numberValues = [];
-  for (const _ of _) {
-
+  for (let value of arr) {
+    const returnedValue = Number(value);
+    numberValues.push(returnedValue);
   }
 
   return numberValues;
 };
-
 
 describe('mapToNumber casts each element in an array to type "number"', () => {
   describe('it correctly converts the values in an array', () => {
@@ -70,12 +72,3 @@ describe('mapToNumber casts each element in an array to type "number"', () => {
     });
   });
 });
-
-
-
-
-
-
-
-
-
