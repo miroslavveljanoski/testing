@@ -1,6 +1,14 @@
 'use strict';
 
-const deepCompare = (actual, expect) => actual === expect || Object.is(actual, expect) || (Object(actual) === actual && Object(expect) === expect) && (Array.isArray(actual) && Array.isArray(expect) && actual.length === expect.length && expect.every((expect, index) => deepCompare(actual[index], expect)));
+const deepCompare = (actual, expect) =>
+  actual === expect ||
+  Object.is(actual, expect) ||
+  (Object(actual) === actual &&
+    Object(expect) === expect &&
+    Array.isArray(actual) &&
+    Array.isArray(expect) &&
+    actual.length === expect.length &&
+    expect.every((expect, index) => deepCompare(actual[index], expect)));
 
 // write an isEnthusiastic function to pass the tests
 
@@ -9,17 +17,18 @@ const deepCompare = (actual, expect) => actual === expect || Object.is(actual, e
  * @param {string} str - string to check for "!"
  * @returns {boolean} if str contains "!" or not
  */
-const isEnthusiastic = (_) => {
-  return _;
+const isEnthusiastic = (val) => {
+  return val.includes('!');
 };
-
 
 // this works!  no need to change it
 const filter = (arr, callback) => {
   const filtered = [];
   for (let entry of arr) {
     const keepIt = callback(entry);
-    if (keepIt) { filtered.push(entry); }
+    if (keepIt) {
+      filtered.push(entry);
+    }
   }
   return filtered;
 };
@@ -47,5 +56,3 @@ const _4_expect = ['hi!', '!'];
 const _4_actual = filter([':(', 'hi!', '!', ''], isEnthusiastic);
 const _4_test = deepCompare(_4_actual, _4_expect);
 console.assert(_4_test, 'Test 4');
-
-

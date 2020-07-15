@@ -7,8 +7,8 @@
  * @param {string} str - the string to check for enthusiasm
  * @returns {boolean}
  */
-const isCurious = (_) => {
-  return _;
+const isCurious = (val) => {
+  return val.includes('?');
 };
 
 // this works! no need to change it
@@ -47,4 +47,3 @@ const _4_expect = 'huh?';
 const _4_actual = find(['huh', 'huh?', 'what?'], isCurious);
 const _4_test = _4_actual === _4_expect;
 console.assert(_4_test, 'Test 4');
-
