@@ -18,13 +18,10 @@ const firstNegativeNumber = (arr) => {
   };
 
   // fill in the array methods and pass the correct logic
-  const negativeNumber = arr
-    ._(_)
-    ._(_);
+  const negativeNumber = arr.filter(isNumber).find(isNegative);
 
   return negativeNumber;
 };
-
 
 describe('firstNegativeNumber: returns the first falsy string', () => {
   describe('it correctly sums the entries', () => {

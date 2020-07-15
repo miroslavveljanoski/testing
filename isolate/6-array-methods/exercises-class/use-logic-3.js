@@ -19,13 +19,10 @@ const sentenceIt = (arr) => {
   };
 
   // fill in the array method to use the logic above
-  const sentenceIt = arr
-    ._(_)
-    ._(_, _);
+  const sentenceIt = arr.filter(isWord).reduce(twoWords, '');
 
   return sentenceIt;
 };
-
 
 describe('sentenceIt: converts an array of strings into a sentence', () => {
   describe('it correctly compares all entries', () => {

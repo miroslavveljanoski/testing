@@ -19,13 +19,10 @@ const numberyNumberify = (arr) => {
   };
 
   // fill in the array methods and which logic to use
-  const allValidNumbers = arr
-    ._(_)
-    ._(_);
+  const allValidNumbers = arr.map(castToNumber).filter(isNotNaN);
 
   return allValidNumbers;
 };
-
 
 describe('numberyNumberify: converts an array of strings into an array of numbery numbers', () => {
   describe('it correctly processes an array of strings', () => {
