@@ -79,7 +79,7 @@
         const howMany = numbersGreaterThan.length;
         const newMessage = `there are ${howMany} greater than ${userNumber}:`;
 
-        alert(`${newMessage}\n${numbersGreaterThan}`);
+        displayNumbersHandler(numbersGreaterThan, newMessage);
       };
 
       // 4. A user can see a list of all numbers less than their input
@@ -102,7 +102,7 @@
         const howMany = numbersLessThan.length;
         const newMessage = `there are ${howMany} numbers lest than ${userNumber}:`;
 
-        alert(`${newMessage}\n${numbersLessThan}`);
+        displayNumbersHandler(numbersLessThan, newMessage);
       };
 
       // 5. A user can see a list of all numbers divisible by their input
@@ -127,7 +127,7 @@
         const howMany = numbersDivisible.length;
         const newMessage = `there are ${howMany} numbers divisible by ${userNumber}:`;
 
-        alert(`${newMessage}\n${numbersDivisible}`);
+        displayNumbersHandler(numbersDivisible, newMessage);
       };
     </script>
   </head>
