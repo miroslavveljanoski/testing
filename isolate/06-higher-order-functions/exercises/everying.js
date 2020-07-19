@@ -9,13 +9,8 @@
  * @param {any} val
  * @returns {boolean}
  */
-<<<<<<< HEAD:isolate/5-higher-order-functions/exercises/everying.js
 const isFalsy = (val) => {
   return !Boolean(val);
-=======
-const isFalsy = (_) => {
-
->>>>>>> upstream/master:isolate/06-higher-order-functions/exercises/everying.js
 };
 
 // this works!  no need to change it
