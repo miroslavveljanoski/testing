@@ -8,22 +8,19 @@ const assert = chai.assert;
  * @returns {Object} - the filtered object
  */
 const keepTruthyEntries = (obj) => {
-
-  let onlyTruthyEntries = _;
-  for (const _ in _) {
-    const value = _;
-    if (_) {
-      _[_] = _;
+  let onlyTruthyEntries = {};
+  for (const key in obj) {
+    const value = obj[key];
+    if (Boolean(value) === true) {
+      onlyTruthyEntries[key] = value;
     }
   }
 
   return onlyTruthyEntries;
 };
 
-
 describe('keepTruthyEntries keeps all the truthy entries', () => {
-
-  describe("it correctly filters the object", () => {
+  describe('it correctly filters the object', () => {
     it('returns an empty object for an empty object', () => {
       const actual = keepTruthyEntries({});
       assert.deepStrictEqual(actual, {});
@@ -34,7 +31,7 @@ describe('keepTruthyEntries keeps all the truthy entries', () => {
         b: false,
         c: undefined,
         d: '',
-        e: null
+        e: null,
       });
       assert.deepStrictEqual(actual, {});
     });
@@ -42,12 +39,12 @@ describe('keepTruthyEntries keeps all the truthy entries', () => {
       const actual = keepTruthyEntries({
         a: 1,
         b: true,
-        c: 'hello'
+        c: 'hello',
       });
       assert.deepStrictEqual(actual, {
         a: 1,
         b: true,
-        c: 'hello'
+        c: 'hello',
       });
     });
     it('correctly filters a mixed object', () => {
@@ -58,13 +55,13 @@ describe('keepTruthyEntries keeps all the truthy entries', () => {
         d: '',
         e: true,
         f: false,
-        g: null
+        g: null,
       };
       const actual = keepTruthyEntries(arg);
       assert.deepStrictEqual(actual, {
         a: 1,
         c: 'hello',
-        e: true
+        e: true,
       });
     });
   });
@@ -82,4 +79,3 @@ describe('keepTruthyEntries keeps all the truthy entries', () => {
     });
   });
 });
-

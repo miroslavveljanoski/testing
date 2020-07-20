@@ -8,25 +8,21 @@ const assert = chai.assert;
  * @returns {Object} - the swapped object
  */
 const swapem = (obj) => {
-
-  let swapped = _;
-  for (const _ in _) {
-    const value = _;
-    if (_) {
-      _[_] = _;
+  let swapped = {};
+  for (const key in obj) {
+    const value = obj[key];
+    if (typeof value === 'string') {
+      swapped[value] = key;
     } else {
-      _[_] = _;
+      swapped[key] = value;
     }
-
   }
 
   return swapped;
 };
 
-
 describe('swapem switches the key and value for each entry', () => {
-
-  describe("it correctly swaps the entries", () => {
+  describe('it correctly swaps the entries', () => {
     it('returns an empty object for an empty object', () => {
       const actual = swapem({});
       assert.deepStrictEqual(actual, {});
@@ -40,19 +36,19 @@ describe('swapem switches the key and value for each entry', () => {
       assert.deepStrictEqual(actual, {
         H: 'a',
         Y: 'b',
-        F: 'c'
+        F: 'c',
       });
     });
     it('swaps no entries when none are strings', () => {
       const actual = swapem({
         a: 1,
         b: true,
-        c: null
+        c: null,
       });
       assert.deepStrictEqual(actual, {
         a: 1,
         b: true,
-        c: null
+        c: null,
       });
     });
     it('only swaps string entries in a mixed object', () => {
@@ -87,4 +83,3 @@ describe('swapem switches the key and value for each entry', () => {
     });
   });
 });
-
