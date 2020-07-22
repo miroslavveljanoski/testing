@@ -8,20 +8,16 @@ const assert = chai.assert;
  * @returns {boolean} - are all the entries defined?
  */
 const allEntriesDefined = (obj) => {
-
-  const objValues = Object._(obj);
-  const allAreDefined = objValues
-    .reduce((acc, next) => {
-      return acc && next !== undefined;
-    }, true);
+  const objValues = Object.values(obj);
+  const allAreDefined = objValues.reduce((acc, next) => {
+    return acc && next !== undefined;
+  }, true);
 
   return allAreDefined;
 };
 
-
 describe('allEntriesDefined checks if all the entries in an object are defined', () => {
-
-  describe("it returns true if there are no undefined entries", () => {
+  describe('it returns true if there are no undefined entries', () => {
     it('returns true for an empty object', () => {
       const actual = allEntriesDefined({});
       assert.strictEqual(actual, true);
@@ -38,13 +34,13 @@ describe('allEntriesDefined checks if all the entries in an object are defined',
         d: 'goodbye',
         e: true,
         f: false,
-        g: null
+        g: null,
       };
       const actual = allEntriesDefined(arg);
       assert.strictEqual(actual, true);
     });
   });
-  describe("it returns false if there are undefined entries", () => {
+  describe('it returns false if there are undefined entries', () => {
     it('returns false for only undefined values', () => {
       const actual = allEntriesDefined({ a: undefined });
       assert.strictEqual(actual, false);
@@ -79,4 +75,3 @@ describe('allEntriesDefined checks if all the entries in an object are defined',
     });
   });
 });
-

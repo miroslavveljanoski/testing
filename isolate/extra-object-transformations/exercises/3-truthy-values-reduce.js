@@ -8,28 +8,23 @@ const assert = chai.assert;
  * @returns {Object} - the filtered object
  */
 const keepTruthyEntries = (obj) => {
-
-  const objEntries = Object._(_);
-  const truthyEntries = objEntries
-    ._(entry => {
-      const value = _;
-      return _;
-    })
-  const truthyObject = truthyEntries
-    ._((newObj, entry) => {
-      const key = _;
-      const value = _;
-      _;
-      return newObj;
-    }, _);
+  const objEntries = Object.entries(obj);
+  const truthyEntries = objEntries.filter((entry) => {
+    const value = entry[1];
+    return value;
+  });
+  const truthyObject = truthyEntries.reduce((newObj, entry) => {
+    const key = entry[0];
+    const value = entry[1];
+    newObj[key] = value;
+    return newObj;
+  }, {});
 
   return truthyObject;
 };
 
-
 describe('keepTruthyEntries keeps all the truthy entries', () => {
-
-  describe("it correctly filters the object", () => {
+  describe('it correctly filters the object', () => {
     it('returns an empty object for an empty object', () => {
       const actual = keepTruthyEntries({});
       assert.deepStrictEqual(actual, {});
@@ -40,7 +35,7 @@ describe('keepTruthyEntries keeps all the truthy entries', () => {
         b: false,
         c: undefined,
         d: '',
-        e: null
+        e: null,
       });
       assert.deepStrictEqual(actual, {});
     });
@@ -48,12 +43,12 @@ describe('keepTruthyEntries keeps all the truthy entries', () => {
       const actual = keepTruthyEntries({
         a: 1,
         b: true,
-        c: 'hello'
+        c: 'hello',
       });
       assert.deepStrictEqual(actual, {
         a: 1,
         b: true,
-        c: 'hello'
+        c: 'hello',
       });
     });
     it('correctly filters a mixed object', () => {
@@ -64,13 +59,13 @@ describe('keepTruthyEntries keeps all the truthy entries', () => {
         d: '',
         e: true,
         f: false,
-        g: null
+        g: null,
       };
       const actual = keepTruthyEntries(arg);
       assert.deepStrictEqual(actual, {
         a: 1,
         c: 'hello',
-        e: true
+        e: true,
       });
     });
   });
@@ -88,4 +83,3 @@ describe('keepTruthyEntries keeps all the truthy entries', () => {
     });
   });
 });
-
