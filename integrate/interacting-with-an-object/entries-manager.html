@@ -1,133 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Entries Manager</title>
 
-<head>
-  <meta charset='utf-8'>
-  <title>Entries Manager</title>
-
-  <style>
-    .centered {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-  </style>
-
-  <script id='script-variables'>
-    let userEntries = {
-      wood: 'oak',
-      television: 'flat'
-    };
-  </script>
-
-  <script id='handlers'>
-    'use strict';
-
-    const displayEntriesHandler = (message = '_', object = _) => {
-      debugger;
-      const starter = message + ':';
-      let stringToDisplay = starter;
-      for (const _ in object) {
-        const nextLine = ` ${_}: ${object[_]}`;
-        stringToDisplay += '\n' + nextLine;
+    <style>
+      .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
       }
-      alert(stringToDisplay);
-    };
+    </style>
 
-    const resetHandler = () => {
-      debugger;
-      userEntries = _;
-      displayEntriesHandler();
-    };
+    <script id="script-variables">
+      let userEntries = {
+        wood: 'oak',
+        television: 'flat',
+      };
+    </script>
 
-    const writeEntryHandler = () => {
-      debugger;
-      const key = prompt(_);
-      if (_) { return; }
+    <script id="handlers">
+      'use strict';
 
-      const newValue = prompt(_);
-      if (_) { return; }
-
-      _[_] = _;
-
-      displayEntriesHandler();
-    };
-
-    const deleteEntryHandler = () => {
-      debugger;
-      const userKey = prompt(_);
-      if (userKey === null) { return; }
-
-      let keyExists = false;
-      for (const _ in _) {
-        if (_ === _) {
-          keyExists = true;
-          break;
+      const displayEntriesHandler = (message = 'all entries', object = userEntries) => {
+        debugger;
+        const starter = message + ':';
+        let stringToDisplay = starter;
+        for (const key in object) {
+          const nextLine = ` ${key}: ${object[key]}`;
+          stringToDisplay += '\n' + nextLine;
         }
-      }
+        alert(stringToDisplay);
+      };
 
-      if (keyExists) {
-        delete userEntries[_];
-        _();
-      } else {
-        alert(_);
-      }
-    };
+      const resetHandler = () => {
+        debugger;
+        userEntries = {};
+        displayEntriesHandler();
+      };
 
-    const findKeyHandler = () => {
-      debugger;
-      const userKey = prompt(_);
-      if (userKey === null) { return; }
-
-      let keyExists = false;
-      for (const _ in _) {
-        if (_ === _) {
-          keyExists = true;
-          break;
+      const writeEntryHandler = () => {
+        debugger;
+        const key = prompt('enter a key:');
+        if (key === undefined) {
+          return;
         }
-      }
 
-      if (_) {
-        const foundEntry = _;
-        alert(foundEntry);
-      } else {
-        alert(_);
-      }
-    };
-
-    const searchValuesHandler = () => {
-      debugger;
-      const query = prompt(_);
-      if (query === null) { return; }
-
-      let searchResults = {};
-      for (const _ in _) {
-        const value = _[key];
-        const matchesQuery = _; // does the string value include the query?
-        if (matchesQuery) {
-          _ = value;
+        const newValue = prompt('enter a value:');
+        if (newValue === undefined) {
+          return;
         }
-      }
 
-      displayEntriesHandler(_, _);
-    };
-  </script>
-</head>
+        userEntries[key] = newValue;
 
-<body>
+        displayEntriesHandler();
+      };
 
-  <main id='user interface' class='centered'>
-    <button onclick="writeEntryHandler()">write an entry</button> <br>
-    <button onclick="deleteEntryHandler()">delete an entry</button> <br>
-    <button onclick="searchValuesHandler()">search in values</button> <br>
-    <button onclick="findKeyHandler()">find by key</button> <br>
-    <br>
-    <button onclick="displayEntriesHandler()">display all userEntries</button> <br>
-    <button onclick="resetHandler()">reset entries</button>
-  </main>
+      const deleteEntryHandler = () => {
+        debugger;
+        const userKey = prompt('enter a key to find:');
+        if (userKey === null) {
+          return;
+        }
 
-</body>
+        let keyExists = false;
+        for (const key in userEntries) {
+          if (key === userKey) {
+            keyExists = true;
+            break;
+          }
+        }
 
+        if (keyExists) {
+          delete userEntries[userKey];
+          displayEntriesHandler();
+        } else {
+          alert(`"${userKey}" does not exist`);
+        }
+      };
+
+      const findKeyHandler = () => {
+        debugger;
+        const userKey = prompt('enter a key to find:');
+        if (userKey === null) {
+          return;
+        }
+
+        let keyExists = false;
+        for (const key in userEntries) {
+          if (key === userKey) {
+            keyExists = true;
+            break;
+          }
+        }
+
+        if (keyExists) {
+          const foundEntry = `${userKey}: ${userEntries[userKey]}`;
+          alert(foundEntry);
+        } else {
+          alert(`entry "${userKey}" does not exist`);
+        }
+      };
+
+      const searchValuesHandler = () => {
+        debugger;
+        const query = prompt('enter a search query');
+        if (query === null) {
+          return;
+        }
+
+        let searchResults = {};
+        for (const key in userEntries) {
+          const value = userEntries[key];
+          const matchesQuery = value.includes(query); // does the string value include the query?
+          if (matchesQuery) {
+            searchResults[key] = value;
+          }
+        }
+
+        displayEntriesHandler(`search results for "${query}"`, searchResults);
+      };
+    </script>
+  </head>
+
+  <body>
+    <main id="user interface" class="centered">
+      <button onclick="writeEntryHandler()">write an entry</button> <br />
+      <button onclick="deleteEntryHandler()">delete an entry</button> <br />
+      <button onclick="searchValuesHandler()">search in values</button> <br />
+      <button onclick="findKeyHandler()">find by key</button> <br />
+      <br />
+      <button onclick="displayEntriesHandler()">display all userEntries</button> <br />
+      <button onclick="resetHandler()">reset entries</button>
+    </main>
+  </body>
 </html>
